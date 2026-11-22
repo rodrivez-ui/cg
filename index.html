@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crypto Greek</title>
+  <meta name="theme-color" content="#000000">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.png">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #000;
+      color: #fff;
+      margin: 0;
+      padding: 24px 16px;
+    }
+    header { text-align: center; margin-bottom: 32px; }
+    h1 {
+      margin: 0 0 12px;
+      font-size: 28px;
+      font-weight: 600;
+    }
+    .logo {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 16px;
+      display: block;
+      border-radius: 14px;
+    }
+    .explanation {
+      color: #888;
+      font-size: 14px;
+      max-width: 480px;
+      margin: 0 auto 28px;
+      line-height: 1.5;
+      text-align: center;
+    }
+    .section { margin-bottom: 48px; }
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #fff;
+    }
+    .token {
+      background: #1a1a1a;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 8px;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      border: 1px solid #2a2a2a;
+    }
+    .rank {
+      color: #0f0;
+      font-weight: 600;
+      font-size: 16px;
+      width: 28px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .token-info { flex: 1; }
+    .name { font-weight: 500; font-size: 15px; }
+    .chain { font-size: 11px; color: #888; text-transform: uppercase; margin-top: 3px; }
+    .stats { text-align: right; font-size: 13px; }
+    .volume { color: #0f0; font-weight: 500; }
+    .liquidity { color: #888; margin-top: 2px; }
+    a { color: #3b82f6; text-decoration: none; font-size: 12px; }
+    a:hover { text-decoration: underline; }
+    .updated { text-align: center; color: #666; font-size: 12px; margin-top: 32px; }
+    button {
+      background: #1a1a1a;
+      color: #fff;
+      border: 1px solid #333;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 0 auto 32px;
+      display: block;
+      font-size: 14px;
+    }
+    button:hover { background: #222; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Crypto Greek</h1>
+    <img src="icon.png" alt="Crypto Greek" class="logo">
+    <div class="explanation">
+      Newest tokens from the last 24 hours and last 7 days, ranked by trading activity and liquidity.<br>
+      Higher rank means stronger volume relative to available liquidity.
+    </div>
+  </header>
+
+  <button onclick="location.reload()">Refresh</button>
+
+  <div class="section">
+    <div class="section-title">Last 24 Hours</div>
+    <div id="list24h">Loading...</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Last 7 Days</div>
+    <div id="list7d">Loading...</div>
+  </div>
+
+  <div class="updated" id="updated"></div>
+
+  <script>
+    async function load() {
+      try {
+        const res = await fetch('tokens.json?t=' + Date.now());
+        const data = await res.json();
+        document.getElementById('updated').textContent = "Updated " + data.updated_at;
+
+        function renderList(tokens, containerId) {
+          const el = document.getElementById(containerId);
+          if (!tokens || tokens.length === 0) {
+            el.innerHTML = "<p style='color:#666'>No data yet.</p>";
+            return;
+          }
+          el.innerHTML = tokens.map((t, i) => `
+            <div class="token">
+              <div class="rank">${i + 1}</div>
+              <div class="token-info">
+                <div class="name">${t.name}</div>
+                <div class="chain">${t.chain}</div>
+                <a href="${t.link}" target="_blank">DexScreener</a>
+              </div>
+              <div class="stats">
+                <div class="volume">$${Number(t.volume_24h).toLocaleString()}</div>
+                <div class="liquidity">Liq $${Number(t.liquidity).toLocaleString()}</div>
+              </div>
+            </div>
+          `).join('');
+        }
+
+        renderList(data.tokens, 'list24h');
+        renderList(data.tokens, 'list7d');
+      } catch (e) {
+        document.getElementById('list24h').innerHTML = "<p style='color:#666'>Error loading data</p>";
+        document.getElementById('list7d').innerHTML = "<p style='color:#666'>Error loading data</p>";
+      }
+    }
+    load();
+  </script>
+</body>
+</html>
