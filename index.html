@@ -14,137 +14,159 @@
       background: #000;
       color: #fff;
       margin: 0;
-      padding: 24px 16px;
+      padding: 20px 16px;
     }
-    header { text-align: center; margin-bottom: 32px; }
-    h1 {
-      margin: 0 0 12px;
-      font-size: 28px;
-      font-weight: 600;
-    }
-    .logo {
-      width: 64px;
-      height: 64px;
-      margin: 0 auto 16px;
-      display: block;
-      border-radius: 14px;
-    }
-    .explanation {
-      color: #888;
-      font-size: 14px;
+    .container {
       max-width: 480px;
-      margin: 0 auto 28px;
-      line-height: 1.5;
-      text-align: center;
+      margin: 0 auto;
     }
-    .section { margin-bottom: 48px; }
-    .section-title {
-      font-size: 18px;
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    h1 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .live {
+      background: #0f3d0f;
+      color: #4ade80;
+      font-size: 11px;
       font-weight: 600;
-      margin-bottom: 16px;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+    .tabs {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .tab {
+      flex: 1;
+      background: #1a1a1a;
+      border: none;
+      border-radius: 12px;
+      padding: 16px 12px;
+      text-align: left;
+      cursor: pointer;
       color: #fff;
+    }
+    .tab.active-24h { background: #1a1a1a; }
+    .tab.active-7d { background: #1a1a1a; }
+    .tab-label {
+      font-size: 20px;
+      font-weight: 700;
+    }
+    .tab-24h .tab-label { color: #4ade80; }
+    .tab-7d .tab-label { color: #60a5fa; }
+    .tab-sub {
+      font-size: 12px;
+      color: #888;
+      margin-top: 4px;
+    }
+    .section-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .table-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #888;
+      padding: 0 4px 8px;
+      border-bottom: 1px solid #222;
     }
     .token {
-      background: #1a1a1a;
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 8px;
       display: flex;
-      gap: 14px;
+      justify-content: space-between;
       align-items: center;
-      border: 1px solid #2a2a2a;
+      padding: 12px 4px;
+      border-bottom: 1px solid #1a1a1a;
     }
-    .rank {
-      color: #3b82f6;
-      font-weight: 600;
-      font-size: 16px;
-      width: 28px;
+    .rank { width: 40px; color: #888; font-weight: 500; }
+    .name { flex: 1; font-weight: 500; }
+    .score { font-weight: 600; color: #fff; }
+    .hidden { display: none; }
+    .updated {
       text-align: center;
-      flex-shrink: 0;
+      color: #666;
+      font-size: 12px;
+      margin-top: 24px;
     }
-    .token-info { flex: 1; }
-    .name { font-weight: 500; font-size: 15px; }
-    .chain { font-size: 11px; color: #888; text-transform: uppercase; margin-top: 3px; }
-    .stats { text-align: right; font-size: 13px; }
-    .volume { color: #3b82f6; font-weight: 500; }
-    .liquidity { color: #888; margin-top: 2px; }
-    a { color: #3b82f6; text-decoration: none; font-size: 12px; }
-    a:hover { text-decoration: underline; }
-    .updated { text-align: center; color: #666; font-size: 12px; margin-top: 32px; }
-    button {
-      background: #1a1a1a;
-      color: #fff;
-      border: 1px solid #333;
-      padding: 10px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      margin: 0 auto 32px;
-      display: block;
-      font-size: 14px;
-    }
-    button:hover { background: #222; }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Crypto Greek</h1>
-    <img src="icon.png" alt="Crypto Greek" class="logo">
-    <div class="explanation">
-      Newest tokens from the last 24 hours and last 7 days, ranked by trading activity and liquidity.<br>
-      Higher rank means stronger volume relative to available liquidity.
+  <div class="container">
+    <header>
+      <h1>CRYPTO GREEK</h1>
+      <div class="live">LIVE DATA</div>
+    </header>
+
+    <div class="tabs">
+      <button class="tab tab-24h" onclick="showTab('24h')">
+        <div class="tab-label">24H</div>
+        <div class="tab-sub">New launches</div>
+      </button>
+      <button class="tab tab-7d" onclick="showTab('7d')">
+        <div class="tab-label">7D</div>
+        <div class="tab-sub">New launches</div>
+      </button>
     </div>
-  </header>
 
-  <button onclick="location.reload()">Refresh</button>
+    <div class="section-title">Top-ranked new coins</div>
 
-  <div class="section">
-    <div class="section-title">Last 24 Hours</div>
-    <div id="list24h">Loading...</div>
+    <div class="table-header">
+      <span>Rank</span>
+      <span>Coin</span>
+      <span>Score</span>
+    </div>
+
+    <div id="list24h"></div>
+    <div id="list7d" class="hidden"></div>
+
+    <div class="updated" id="updated"></div>
   </div>
-
-  <div class="section">
-    <div class="section-title">Last 7 Days</div>
-    <div id="list7d">Loading...</div>
-  </div>
-
-  <div class="updated" id="updated"></div>
 
   <script>
+    let currentData = null;
+
     async function load() {
       try {
         const res = await fetch('tokens.json?t=' + Date.now());
-        const data = await res.json();
-        document.getElementById('updated').textContent = "Updated " + data.updated_at;
-
-        function renderList(tokens, containerId) {
-          const el = document.getElementById(containerId);
-          if (!tokens || tokens.length === 0) {
-            el.innerHTML = "<p style='color:#666'>No data yet.</p>";
-            return;
-          }
-          el.innerHTML = tokens.map((t, i) => `
-            <div class="token">
-              <div class="rank">${i + 1}</div>
-              <div class="token-info">
-                <div class="name">${t.name}</div>
-                <div class="chain">${t.chain}</div>
-                <a href="${t.link}" target="_blank">DexScreener</a>
-              </div>
-              <div class="stats">
-                <div class="volume">$${Number(t.volume_24h).toLocaleString()}</div>
-                <div class="liquidity">Liq $${Number(t.liquidity).toLocaleString()}</div>
-              </div>
-            </div>
-          `).join('');
-        }
-
-        renderList(data.tokens, 'list24h');
-        renderList(data.tokens, 'list7d');
+        currentData = await res.json();
+        document.getElementById('updated').textContent = "Updated " + currentData.updated_at;
+        render();
       } catch (e) {
-        document.getElementById('list24h').innerHTML = "<p style='color:#666'>Error loading data</p>";
-        document.getElementById('list7d').innerHTML = "<p style='color:#666'>Error loading data</p>";
+        document.getElementById('list24h').innerHTML = "<p>Error loading data</p>";
       }
     }
+
+    function render() {
+      if (!currentData) return;
+      const tokens = currentData.tokens || [];
+
+      const html = tokens.map((t, i) => `
+        <div class="token">
+          <div class="rank">${i + 1}</div>
+          <div class="name">${t.name}</div>
+          <div class="score">${t.score}</div>
+        </div>
+      `).join('');
+
+      document.getElementById('list24h').innerHTML = html;
+      document.getElementById('list7d').innerHTML = html;
+    }
+
+    function showTab(tab) {
+      document.getElementById('list24h').classList.toggle('hidden', tab !== '24h');
+      document.getElementById('list7d').classList.toggle('hidden', tab !== '7d');
+    }
+
     load();
   </script>
 </body>
