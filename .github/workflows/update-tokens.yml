@@ -1,0 +1,32 @@
+name: Update Tokens
+
+on:
+  schedule:
+    - cron: '0 12 * * *'   # Runs every day at 12:00 UTC
+  workflow_dispatch:        # Allows manual run
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run script
+        run: python fetch_new_coins.py
+
+      - name: Commit and push
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add tokens.json
+          git commit -m "Update tokens.json" || echo "No changes"
+          git push
