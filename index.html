@@ -17,19 +17,23 @@
       padding: 20px 16px;
     }
     .container { max-width: 480px; margin: 0 auto; }
-    header { text-align: center; margin-bottom: 20px; }
-    h1 { margin: 0 0 8px; font-size: 24px; font-weight: 700; }
-    .logo { width: 56px; height: 56px; margin: 0 auto 12px; display: block; border-radius: 12px; }
+    header { margin-bottom: 20px; }
+    .top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    h1 { margin: 0; font-size: 24px; font-weight: 700; }
     .live {
-      display: inline-block;
       background: #0f3d0f;
       color: #4ade80;
       font-size: 11px;
       font-weight: 600;
       padding: 4px 10px;
       border-radius: 999px;
-      margin-bottom: 16px;
     }
+    .logo { width: 56px; height: 56px; margin: 0 auto 12px; display: block; border-radius: 12px; }
     .explanation {
       color: #888;
       font-size: 13px;
@@ -75,9 +79,11 @@
 <body>
   <div class="container">
     <header>
-      <h1>CRYPTO GREEK</h1>
+      <div class="top-row">
+        <div class="live">LIVE DATA</div>
+        <h1>CRYPTO GREEK</h1>
+      </div>
       <img src="icon.png" alt="Logo" class="logo">
-      <div class="live">LIVE DATA</div>
       <div class="explanation">
         Ranked by trading volume and liquidity.<br>
         Higher score means stronger recent activity relative to available liquidity.
