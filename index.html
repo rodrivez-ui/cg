@@ -16,114 +16,83 @@
       margin: 0;
       padding: 20px 16px;
     }
-    .container {
-      max-width: 480px;
-      margin: 0 auto;
-    }
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-    h1 {
-      margin: 0;
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
+    .container { max-width: 480px; margin: 0 auto; }
+    header { text-align: center; margin-bottom: 20px; }
+    h1 { margin: 0 0 8px; font-size: 24px; font-weight: 700; }
+    .logo { width: 56px; height: 56px; margin: 0 auto 12px; display: block; border-radius: 12px; }
     .live {
+      display: inline-block;
       background: #0f3d0f;
       color: #4ade80;
       font-size: 11px;
       font-weight: 600;
       padding: 4px 10px;
       border-radius: 999px;
+      margin-bottom: 16px;
     }
-    .tabs {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 24px;
+    .explanation {
+      color: #888;
+      font-size: 13px;
+      line-height: 1.4;
+      margin-bottom: 20px;
+      text-align: center;
     }
+    .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
     .tab {
       flex: 1;
       background: #1a1a1a;
-      border: none;
+      border: 1px solid #2a2a2a;
       border-radius: 12px;
-      padding: 16px 12px;
-      text-align: left;
+      padding: 14px 10px;
+      text-align: center;
       cursor: pointer;
       color: #fff;
     }
-    .tab.active-24h { background: #1a1a1a; }
-    .tab.active-7d { background: #1a1a1a; }
-    .tab-label {
-      font-size: 20px;
-      font-weight: 700;
-    }
+    .tab.active { border-color: #3b82f6; }
+    .tab-label { font-size: 18px; font-weight: 700; }
     .tab-24h .tab-label { color: #4ade80; }
     .tab-7d .tab-label { color: #60a5fa; }
-    .tab-sub {
-      font-size: 12px;
-      color: #888;
-      margin-top: 4px;
-    }
-    .section-title {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 12px;
-    }
-    .table-header {
-      display: flex;
-      justify-content: space-between;
-      font-size: 12px;
-      color: #888;
-      padding: 0 4px 8px;
-      border-bottom: 1px solid #222;
-    }
+    .tab-sub { font-size: 11px; color: #888; margin-top: 2px; }
     .token {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 4px;
-      border-bottom: 1px solid #1a1a1a;
+      background: #111;
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 8px;
+      border: 1px solid #222;
     }
-    .rank { width: 40px; color: #888; font-weight: 500; }
-    .name { flex: 1; font-weight: 500; }
-    .score { font-weight: 600; color: #fff; }
+    .token-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .rank { color: #3b82f6; font-weight: 700; font-size: 15px; }
+    .score { background: #1a1a1a; padding: 2px 8px; border-radius: 6px; font-size: 13px; font-weight: 600; }
+    .name { font-weight: 600; font-size: 15px; }
+    .chain { font-size: 11px; color: #888; text-transform: uppercase; }
+    .stats { font-size: 12px; color: #aaa; margin-top: 6px; }
+    .stats span { margin-right: 12px; }
+    a { color: #3b82f6; text-decoration: none; font-size: 12px; }
     .hidden { display: none; }
-    .updated {
-      text-align: center;
-      color: #666;
-      font-size: 12px;
-      margin-top: 24px;
-    }
+    .updated { text-align: center; color: #666; font-size: 12px; margin-top: 20px; }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
       <h1>CRYPTO GREEK</h1>
+      <img src="icon.png" alt="Logo" class="logo">
       <div class="live">LIVE DATA</div>
+      <div class="explanation">
+        Ranked by trading volume and liquidity.<br>
+        Higher score means stronger recent activity relative to available liquidity.
+      </div>
     </header>
 
     <div class="tabs">
-      <button class="tab tab-24h" onclick="showTab('24h')">
+      <div class="tab tab-24h active" onclick="showTab('24h')">
         <div class="tab-label">24H</div>
         <div class="tab-sub">New launches</div>
-      </button>
-      <button class="tab tab-7d" onclick="showTab('7d')">
+      </div>
+      <div class="tab tab-7d" onclick="showTab('7d')">
         <div class="tab-label">7D</div>
         <div class="tab-sub">New launches</div>
-      </button>
-    </div>
-
-    <div class="section-title">Top-ranked new coins</div>
-
-    <div class="table-header">
-      <span>Rank</span>
-      <span>Coin</span>
-      <span>Score</span>
+      </div>
     </div>
 
     <div id="list24h"></div>
@@ -152,9 +121,17 @@
 
       const html = tokens.map((t, i) => `
         <div class="token">
-          <div class="rank">${i + 1}</div>
+          <div class="token-header">
+            <div class="rank">#${i + 1}</div>
+            <div class="score">${t.score}</div>
+          </div>
           <div class="name">${t.name}</div>
-          <div class="score">${t.score}</div>
+          <div class="chain">${t.chain}</div>
+          <div class="stats">
+            <span>Vol $${Number(t.volume_24h).toLocaleString()}</span>
+            <span>Liq $${Number(t.liquidity).toLocaleString()}</span>
+          </div>
+          <a href="${t.link}" target="_blank">View on DexScreener →</a>
         </div>
       `).join('');
 
@@ -163,6 +140,8 @@
     }
 
     function showTab(tab) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelector('.tab-' + tab).classList.add('active');
       document.getElementById('list24h').classList.toggle('hidden', tab !== '24h');
       document.getElementById('list7d').classList.toggle('hidden', tab !== '7d');
     }
