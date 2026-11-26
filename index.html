@@ -4,149 +4,618 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Crypto Greek</title>
-  <meta name="theme-color" content="#000000">
-  <link rel="manifest" href="manifest.json">
-  <link rel="icon" href="icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital@1&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
       background: #000;
       color: #fff;
-      margin: 0;
-      padding: 20px 16px;
+      font-family: "Outfit", system-ui, sans-serif;
+      min-height: 100%;
     }
-    .container { max-width: 480px; margin: 0 auto; }
-    header { text-align: center; margin-bottom: 20px; }
-    .live {
-      position: absolute;
-      top: 20px;
-      left: 16px;
-      background: #0f3d0f;
+    .live-corner {
+      position: fixed;
+      top: 8px;
+      left: 8px;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+    }
+    .live-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .brand-mini {
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+      color: #fff;
+      padding-left: 2px;
+      line-height: 1;
+    }
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #0a2a12;
       color: #4ade80;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 600;
-      padding: 4px 10px;
+      letter-spacing: 0.02em;
+      padding: 6px 12px;
       border-radius: 999px;
     }
-    .logo { width: 88px; height: 88px; margin: 24px auto 16px; display: block; border-radius: 18px; }
-    h1 { margin: 0 0 12px; font-size: 24px; font-weight: 700; }
-    .explanation {
-      color: #888;
-      font-size: 13px;
-      line-height: 1.4;
-      margin-bottom: 20px;
+    .dot {
+      width: 6px;
+      height: 6px;
+      background: #4ade80;
+      border-radius: 50%;
     }
-    .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
-    .tab {
-      flex: 1;
-      background: #1a1a1a;
-      border: 1px solid #2a2a2a;
-      border-radius: 12px;
-      padding: 14px 10px;
-      text-align: center;
+    .refresh-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      border: 1px solid #242424;
+      color: #8a8a8a;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
       cursor: pointer;
-      color: #fff;
     }
-    .tab.active { border-color: #3b82f6; }
-    .tab-label { font-size: 18px; font-weight: 700; }
-    .tab-24h .tab-label { color: #4ade80; }
-    .tab-7d .tab-label { color: #60a5fa; }
-    .tab-sub { font-size: 11px; color: #888; margin-top: 2px; }
-    .token {
+    .refresh-btn:disabled { opacity: 0.5; cursor: default; }
+    .spin { animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .header {
+      max-width: 512px;
+      margin: 0 auto;
+      padding: 72px 16px 0;
+      text-align: center;
+    }
+    .gamma {
+      font-family: "EB Garamond", Georgia, serif;
+      font-style: italic;
+      font-size: 8rem;
+      line-height: 0.85;
+      margin-top: 0;
+      user-select: none;
+    }
+    .tabs {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 24px;
+    }
+    .tab {
       background: #111;
+      color: #5c5c5c;
+      padding: 8px 20px;
       border-radius: 12px;
-      padding: 14px;
-      margin-bottom: 8px;
-      border: 1px solid #222;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
     }
-    .token-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-    .rank { color: #3b82f6; font-weight: 700; font-size: 15px; }
-    .score { background: #1a1a1a; padding: 2px 8px; border-radius: 6px; font-size: 13px; font-weight: 600; }
-    .name { font-weight: 600; font-size: 15px; }
-    .chain { font-size: 11px; color: #888; text-transform: uppercase; }
-    .stats { font-size: 12px; color: #aaa; margin-top: 6px; }
-    .stats span { margin-right: 12px; }
-    a { color: #3b82f6; text-decoration: none; font-size: 12px; }
-    .hidden { display: none; }
-    .updated { text-align: center; color: #666; font-size: 12px; margin-top: 20px; }
+    .tab.active { background: #1a1a1a; color: #fff; }
+    .hint {
+      margin-top: 12px;
+      text-align: center;
+      color: #5c5c5c;
+      font-size: 12px;
+    }
+    .btn-row {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .rank-btn, .method-btn {
+      background: transparent;
+      border: 1px solid #242424;
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .rank-btn.active { border-color: #3b82f6; color: #3b82f6; }
+    .list {
+      max-width: 512px;
+      margin: 16px auto 0;
+      padding: 0 16px;
+    }
+    .card {
+      background: #111;
+      border: 1px solid #242424;
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .card-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .rank {
+      width: 24px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      font-variant-numeric: tabular-nums;
+    }
+    .logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #1a1a1a;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .logo-fallback {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #1a1a1a;
+      color: #8a8a8a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    .info { min-width: 0; flex: 1; }
+    .name {
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .symbol {
+      color: #5c5c5c;
+      font-size: 14px;
+      margin-top: 2px;
+    }
+    .meta { color: #8a8a8a; font-size: 12px; margin-top: 2px; }
+    .meta span { color: #5c5c5c; }
+    .metrics {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      text-align: right;
+    }
+    .metric-label { color: #5c5c5c; font-size: 12px; }
+    .metric-value { margin-top: 2px; font-size: 14px; font-weight: 600; }
+    .price { color: #fff; }
+    .up { color: #4ade80; }
+    .down { color: #f87171; }
+    .liq { color: #60a5fa; }
+    .faint { color: #5c5c5c; }
+    .ranking {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid #242424;
+      display: none;
+    }
+    .ranking.show { display: block; }
+    .rank-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #8a8a8a;
+      margin-bottom: 4px;
+    }
+    .rank-row strong { color: #fff; font-weight: 600; }
+    .link {
+      display: inline-flex;
+      margin-top: 16px;
+      background: #3b82f6;
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 8px;
+    }
+    .empty, .error {
+      text-align: center;
+      color: #8a8a8a;
+      padding: 64px 16px;
+      font-size: 14px;
+    }
+    .error { color: #f87171; }
+    .skeleton {
+      height: 144px;
+      border-radius: 16px;
+      background: #111;
+      margin-bottom: 12px;
+      animation: pulse 1.4s ease-in-out infinite;
+    }
+    @keyframes pulse { 50% { opacity: 0.55; } }
+    .updated {
+      margin-top: 32px;
+      text-align: center;
+      color: #5c5c5c;
+      font-size: 12px;
+    }
+    .overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 16px;
+    }
+    .overlay[hidden] {
+      display: none !important;
+    }
+    @media (min-width: 640px) {
+      .overlay { align-items: center; }
+    }
+    .dialog {
+      width: 100%;
+      max-width: 448px;
+      background: #111;
+      border: 1px solid #242424;
+      border-radius: 16px;
+      padding: 20px;
+    }
+    .dialog h2 { font-size: 18px; font-weight: 600; }
+    .dialog p { margin-top: 12px; color: #8a8a8a; font-size: 14px; line-height: 1.5; }
+    .dialog strong { color: #fff; font-weight: 600; }
+    .close-btn {
+      margin-top: 20px;
+      background: #3b82f6;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="live">LIVE DATA</div>
-    <header>
-      <img src="icon.png" alt="Logo" class="logo">
-      <h1>CRYPTO GREEK</h1>
-      <div class="explanation">
-        Ranked by trading volume and liquidity.<br>
-        Higher score means stronger recent activity relative to available liquidity.
-      </div>
-    </header>
-
-    <div class="tabs">
-      <div class="tab tab-24h active" onclick="showTab('24h')">
-        <div class="tab-label">24H</div>
-        <div class="tab-sub">New launches</div>
-      </div>
-      <div class="tab tab-7d" onclick="showTab('7d')">
-        <div class="tab-label">7D</div>
-        <div class="tab-sub">New launches</div>
-      </div>
+  <div class="live-corner">
+    <div class="live-row">
+      <div class="live-badge"><span class="dot"></span>LIVE DATA</div>
+      <button class="refresh-btn" id="refresh" type="button">
+        <svg id="refresh-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/></svg>
+        Refresh
+      </button>
     </div>
+    <div class="brand-mini">CRYPTO GREEK</div>
+  </div>
 
-    <div id="list24h"></div>
-    <div id="list7d" class="hidden"></div>
+  <header class="header">
+    <div class="gamma" aria-hidden="true">γ</div>
+  </header>
 
-    <div class="updated" id="updated"></div>
+  <div class="tabs">
+    <button class="tab active" data-tab="h24" type="button">24H</button>
+    <button class="tab" data-tab="d7" type="button">7D</button>
+    <button class="tab" data-tab="m1" type="button">1M</button>
+  </div>
+  <p class="hint" id="hint">Launched in the last 24 hours</p>
+  <div class="btn-row">
+    <button class="rank-btn" id="rank-toggle" type="button">Show ranking</button>
+    <button class="method-btn" type="button" id="method">Methodology</button>
+  </div>
+
+  <section class="list" id="list">
+    <div class="skeleton"></div>
+    <div class="skeleton"></div>
+    <div class="skeleton"></div>
+    <div class="skeleton"></div>
+  </section>
+
+  <p class="updated" id="updated">DexScreener</p>
+
+  <div class="overlay" id="overlay" hidden>
+    <div class="dialog" role="dialog" aria-labelledby="method-title">
+      <h2 id="method-title">Methodology</h2>
+      <p>Each tab is a different launch window. Inside every window the ranking variables, most prioritized to least:</p>
+      <p><strong>1. 24h trading volume</strong> — 70% of the score. Higher volume ranks higher.</p>
+      <p><strong>2. Liquidity</strong> — 30% of the score. More liquidity in the pool ranks higher.</p>
+      <p>Both are scored on a log scale, then combined. A higher spot means more trading relative to the money sitting in the pool.</p>
+      <p>Market cap is shown on each card for context. It is not part of the ranking.</p>
+      <p><strong>24H</strong> — pair created in the last 24 hours.</p>
+      <p><strong>7D</strong> — pair created between 1 and 7 days ago.</p>
+      <p><strong>1M</strong> — pair created between 7 and 30 days ago.</p>
+      <p>The time next to the chain is how long ago the pair was created.</p>
+      <p>Source: DexScreener. Not a buy signal.</p>
+      <button class="close-btn" type="button" id="close">Close</button>
+    </div>
   </div>
 
   <script>
-    let currentData = null;
+    const CHAINS = {
+      solana: "Solana", ethereum: "Ethereum", base: "Base", bsc: "BNB Chain",
+      arbitrum: "Arbitrum", polygon: "Polygon", avalanche: "Avalanche",
+      optimism: "Optimism", pulsechain: "PulseChain", sui: "Sui", ton: "TON",
+      robinhood: "Robinhood", hyperevm: "HyperEVM"
+    };
+    const SKIP = new Set(["SOL","WSOL","USDC","USDT","USD1","ETH","WETH","BTC","WBTC","BNB","WBNB"]);
+    const DAY = 24 * 60 * 60 * 1000;
+    const HINTS = {
+      h24: "Launched in the last 24 hours",
+      d7: "Launched 1–7 days ago",
+      m1: "Launched 7–30 days ago"
+    };
 
-    async function load() {
-      try {
-        const res = await fetch('tokens.json?t=' + Date.now());
-        currentData = await res.json();
-        document.getElementById('updated').textContent = "Updated " + currentData.updated_at;
-        render();
-      } catch (e) {
-        document.getElementById('list24h').innerHTML = "<p>Error loading data</p>";
+    let tab = "h24";
+    let board = null;
+    let loading = false;
+    let updatedAt = 0;
+    let showRanking = false;
+
+    const listEl = document.getElementById("list");
+    const hintEl = document.getElementById("hint");
+    const updatedEl = document.getElementById("updated");
+    const refreshBtn = document.getElementById("refresh");
+    const refreshIcon = document.getElementById("refresh-icon");
+    const rankToggle = document.getElementById("rank-toggle");
+
+    function formatUsd(n) {
+      if (!Number.isFinite(n) || n <= 0) return "—";
+      if (n >= 1_000_000) return "$" + (n / 1_000_000).toFixed(2) + "M";
+      if (n >= 1_000) return "$" + Math.round(n).toLocaleString("en-US");
+      if (n >= 1) return "$" + n.toFixed(2);
+      return "$" + n.toPrecision(3);
+    }
+    function formatPrice(n) {
+      if (!Number.isFinite(n) || n <= 0) return "—";
+      if (n >= 1) return "$" + n.toLocaleString("en-US", { maximumFractionDigits: 2 });
+      if (n >= 0.01) return "$" + n.toFixed(4);
+      return "$" + n.toPrecision(3);
+    }
+    function formatChange(n) {
+      if (n == null || !Number.isFinite(n)) return { text: "—", up: true };
+      const up = n >= 0;
+      const abs = Math.abs(n);
+      const body = abs >= 100 ? abs.toFixed(0) : abs.toFixed(1);
+      return { text: (up ? "+" : "−") + body + "%", up };
+    }
+    function formatAge(created, now, short) {
+      const seconds = Math.max(0, (now - created) / 1000);
+      if (seconds < 60) return short ? "now" : "just now";
+      const minutes = Math.floor(seconds / 60);
+      if (minutes < 60) return short ? minutes + "m" : minutes + "m ago";
+      const hours = Math.floor(minutes / 60);
+      if (hours < 24) return short ? hours + "h" : hours + "h ago";
+      const days = Math.floor(hours / 24);
+      return short ? days + "d" : days + "d ago";
+    }
+    function cleanName(name) {
+      const text = (name || "").replace(/\s+/g, " ").trim();
+      if (!text) return "";
+      return text.length <= 42 ? text : text.slice(0, 41).trimEnd() + "…";
+    }
+    function httpUrl(value) {
+      return value && String(value).startsWith("http") ? value : null;
+    }
+    async function fetchJson(url) {
+      const res = await fetch(url, { headers: { accept: "application/json" } });
+      if (!res.ok) throw new Error("DexScreener " + res.status);
+      return res.json();
+    }
+
+    async function loadBoard() {
+      const feeds = await Promise.all([
+        "https://api.dexscreener.com/token-profiles/latest/v1",
+        "https://api.dexscreener.com/token-boosts/top/v1",
+        "https://api.dexscreener.com/token-boosts/latest/v1"
+      ].map(async (url) => {
+        try {
+          const data = await fetchJson(url);
+          return Array.isArray(data) ? data : [];
+        } catch { return []; }
+      }));
+
+      const icons = new Map();
+      const byChain = new Map();
+      for (const item of feeds.flat()) {
+        const chain = item.chainId;
+        const address = item.tokenAddress;
+        if (!chain || !address) continue;
+        const key = chain + ":" + address;
+        const icon = httpUrl(item.icon);
+        if (icon) icons.set(key, icon);
+        const list = byChain.get(chain) || [];
+        if (!list.includes(address)) list.push(address);
+        byChain.set(chain, list);
       }
+
+      const pairGroups = await Promise.all([...byChain.entries()].map(async ([chain, addresses]) => {
+        const pairs = [];
+        for (let i = 0; i < addresses.length; i += 30) {
+          const chunk = addresses.slice(i, i + 30);
+          try {
+            const data = await fetchJson("https://api.dexscreener.com/tokens/v1/" + chain + "/" + chunk.join(","));
+            if (Array.isArray(data)) pairs.push(...data);
+          } catch {}
+        }
+        return pairs;
+      }));
+
+      const now = Date.now();
+      const best = new Map();
+      for (const pair of pairGroups.flat()) {
+        const address = pair.baseToken && pair.baseToken.address;
+        const chain = pair.chainId;
+        if (!address || !chain || !pair.pairCreatedAt) continue;
+        const key = chain + ":" + address;
+        const current = best.get(key);
+        const liq = (pair.liquidity && pair.liquidity.usd) || 0;
+        const prev = current ? ((current.liquidity && current.liquidity.usd) || -1) : -1;
+        if (!current || liq > prev) best.set(key, pair);
+      }
+
+      const rows = [...best.entries()].map(([key, pair]) => {
+        const name = cleanName(pair.baseToken && pair.baseToken.name);
+        const symbol = ((pair.baseToken && pair.baseToken.symbol) || "").trim();
+        const liq = (pair.liquidity && pair.liquidity.usd) || 0;
+        const vol = (pair.volume && pair.volume.h24) || 0;
+        const mcap = pair.marketCap || pair.fdv || 0;
+        const created = pair.pairCreatedAt || 0;
+        if (!name || !symbol || SKIP.has(symbol.toUpperCase())) return null;
+        if (liq < 1000 && vol < 5000) return null;
+        const ageMs = now - created;
+        if (ageMs < 0 || ageMs > 30 * DAY) return null;
+        const change = formatChange(pair.priceChange && pair.priceChange.h24);
+        const shortAge = ageMs <= DAY;
+        return {
+          card: {
+            name,
+            symbol,
+            chain: CHAINS[pair.chainId] || pair.chainId || "Unknown",
+            age: formatAge(created, now, shortAge),
+            price: formatPrice(Number(pair.priceUsd)),
+            change: change.text,
+            changeUp: change.up,
+            volume: formatUsd(vol),
+            liquidity: formatUsd(liq),
+            mcap: formatUsd(mcap),
+            logo: httpUrl(pair.info && pair.info.imageUrl) || icons.get(key) || null,
+            link: pair.url || "https://dexscreener.com"
+          },
+          score: 0.7 * Math.log10(vol + 1) + 0.3 * Math.log10(liq + 1),
+          age: ageMs,
+          vol: vol,
+          liq: liq
+        };
+      }).filter(Boolean);
+
+      const take = (pred) => {
+        const list = rows.filter((row) => pred(row.age)).sort((a, b) => b.score - a.score).slice(0, 15);
+        const byVol = [...list].sort((a, b) => b.vol - a.vol);
+        const byLiq = [...list].sort((a, b) => b.liq - a.liq);
+        const volRank = new Map(byVol.map((row, i) => [row, i + 1]));
+        const liqRank = new Map(byLiq.map((row, i) => [row, i + 1]));
+        return list.map((row) => {
+          row.card.volRank = volRank.get(row);
+          row.card.liqRank = liqRank.get(row);
+          row.card.score = row.score.toFixed(2);
+          return row.card;
+        });
+      };
+      return {
+        updatedAt: now,
+        lists: {
+          h24: take((age) => age <= DAY),
+          d7: take((age) => age > DAY && age <= 7 * DAY),
+          m1: take((age) => age > 7 * DAY && age <= 30 * DAY)
+        }
+      };
+    }
+
+    function agoLabel(ts, now) {
+      const seconds = Math.max(0, Math.round((now - ts) / 1000));
+      if (seconds < 15) return "Updated just now";
+      if (seconds < 60) return "Updated " + seconds + "s ago";
+      const minutes = Math.floor(seconds / 60);
+      if (minutes < 60) return "Updated " + minutes + "m ago";
+      return "Updated " + Math.floor(minutes / 60) + "h ago";
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
     }
 
     function render() {
-      if (!currentData) return;
-      const tokens = currentData.tokens || [];
+      const tokens = board ? board.lists[tab] : [];
+      hintEl.textContent = HINTS[tab];
+      updatedEl.textContent = board ? agoLabel(updatedAt, Date.now()) : "DexScreener";
+      refreshBtn.disabled = loading;
+      refreshIcon.classList.toggle("spin", loading);
 
-      const html = tokens.map((t, i) => `
-        <div class="token">
-          <div class="token-header">
-            <div class="rank">#${i + 1}</div>
-            <div class="score">${t.score}</div>
-          </div>
-          <div class="name">${t.name}</div>
-          <div class="chain">${t.chain}</div>
-          <div class="stats">
-            <span>Vol $${Number(t.volume_24h).toLocaleString()}</span>
-            <span>Liq $${Number(t.liquidity).toLocaleString()}</span>
-          </div>
-          <a href="${t.link}" target="_blank">View on DexScreener →</a>
-        </div>
-      `).join('');
-
-      document.getElementById('list24h').innerHTML = html;
-      document.getElementById('list7d').innerHTML = html;
+      if (loading && !board) {
+        listEl.innerHTML = '<div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>';
+        return;
+      }
+      if (!board) {
+        listEl.innerHTML = '<p class="empty">Couldn’t reach DexScreener. Try refresh.</p>';
+        return;
+      }
+      if (!tokens.length) {
+        listEl.innerHTML = '<p class="empty">Nothing in this window right now.</p>';
+        return;
+      }
+      listEl.innerHTML = tokens.map((token, index) => {
+        const logo = token.logo
+          ? '<img class="logo" src="' + escapeHtml(token.logo) + '" alt="" onerror="this.replaceWith(Object.assign(document.createElement(\'span\'),{className:\'logo-fallback\',textContent:\'' + escapeHtml(token.symbol.slice(0, 1)) + '\'}))">'
+          : '<span class="logo-fallback">' + escapeHtml(token.symbol.slice(0, 1)) + "</span>";
+        return '<article class="card"><div class="card-top"><span class="rank">' + (index + 1) + "</span>" + logo +
+          '<div class="info"><p class="name">' + escapeHtml(token.name) + '</p><p class="symbol">$' + escapeHtml(token.symbol) +
+          '</p><p class="meta">' + escapeHtml(token.chain) + ' <span>· ' + escapeHtml(token.age) + "</span></p></div></div>" +
+          '<dl class="metrics"><div><dt class="metric-label">Price</dt><dd class="metric-value price">' + escapeHtml(token.price) +
+          '</dd></div><div><dt class="metric-label">Volume</dt><dd class="metric-value up">' + escapeHtml(token.volume) +
+          '</dd></div><div><dt class="metric-label">Liquidity</dt><dd class="metric-value liq">' + escapeHtml(token.liquidity) +
+          '</dd></div><div><dt class="metric-label">MCap</dt><dd class="metric-value price">' + escapeHtml(token.mcap) +
+          '</dd></div></dl>' +
+          '<div class="ranking' + (showRanking ? ' show' : '') + '">' +
+            '<div class="rank-row"><span>Volume rank</span><strong>#' + token.volRank + '</strong></div>' +
+            '<div class="rank-row"><span>Liquidity rank</span><strong>#' + token.liqRank + '</strong></div>' +
+            '<div class="rank-row"><span>Combined score</span><strong>' + escapeHtml(token.score) + '</strong></div>' +
+          '</div>' +
+          '<a class="link" href="' + escapeHtml(token.link) + '" target="_blank" rel="noreferrer">DexScreener</a></article>';
+      }).join("");
     }
 
-    function showTab(tab) {
-      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-      document.querySelector('.tab-' + tab).classList.add('active');
-      document.getElementById('list24h').classList.toggle('hidden', tab !== '24h');
-      document.getElementById('list7d').classList.toggle('hidden', tab !== '7d');
+    async function refresh() {
+      loading = true;
+      render();
+      try {
+        board = await loadBoard();
+        updatedAt = board.updatedAt;
+      } catch {
+        if (!board) board = null;
+      } finally {
+        loading = false;
+        render();
+      }
     }
 
-    load();
+    document.querySelectorAll(".tab").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        tab = btn.dataset.tab;
+        document.querySelectorAll(".tab").forEach((item) => item.classList.toggle("active", item === btn));
+        render();
+      });
+    });
+    refreshBtn.addEventListener("click", () => refresh());
+    rankToggle.addEventListener("click", () => {
+      showRanking = !showRanking;
+      rankToggle.textContent = showRanking ? "Hide ranking" : "Show ranking";
+      rankToggle.classList.toggle("active", showRanking);
+      render();
+    });
+    document.getElementById("method").addEventListener("click", () => {
+      document.getElementById("overlay").hidden = false;
+    });
+    document.getElementById("close").addEventListener("click", () => {
+      document.getElementById("overlay").hidden = true;
+    });
+    document.getElementById("overlay").addEventListener("click", (event) => {
+      if (event.target.id === "overlay") document.getElementById("overlay").hidden = true;
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") document.getElementById("overlay").hidden = true;
+    });
+
+    refresh();
+    setInterval(() => { if (board) updatedEl.textContent = agoLabel(updatedAt, Date.now()); }, 15000);
   </script>
 </body>
 </html>
