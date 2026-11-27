@@ -17,289 +17,206 @@
     }
     .live-corner {
       position: fixed;
-      top: 8px;
-      left: 8px;
+      top: 12px;
+      left: 12px;
       z-index: 10;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 6px;
-    }
-    .live-row {
       display: flex;
       align-items: center;
       gap: 8px;
-    }
-    .brand-mini {
-      font-size: 30px;
-      font-weight: 700;
-      letter-spacing: -0.4px;
-      color: #fff;
-      padding-left: 2px;
-      line-height: 1;
     }
     .live-badge {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       background: #0a2a12;
       color: #4ade80;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
-      letter-spacing: 0.02em;
-      padding: 6px 12px;
+      padding: 5px 10px;
       border-radius: 999px;
     }
-    .dot {
-      width: 6px;
-      height: 6px;
-      background: #4ade80;
-      border-radius: 50%;
-    }
+    .dot { width: 6px; height: 6px; background: #4ade80; border-radius: 50%; }
     .refresh-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
       background: transparent;
       border: 1px solid #242424;
       color: #8a8a8a;
-      padding: 6px 12px;
+      padding: 5px 10px;
       border-radius: 999px;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
       cursor: pointer;
     }
-    .refresh-btn:disabled { opacity: 0.5; cursor: default; }
+    .refresh-btn:disabled { opacity: 0.5; }
     .spin { animation: spin 0.8s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
+
     .header {
-      max-width: 512px;
+      max-width: 480px;
       margin: 0 auto;
-      padding: 72px 16px 0;
+      padding: 80px 16px 0;
       text-align: center;
     }
     .gamma {
       font-family: "EB Garamond", Georgia, serif;
       font-style: italic;
-      font-size: 8rem;
-      line-height: 0.85;
-      margin-top: 0;
-      user-select: none;
+      font-size: 5.5rem;
+      line-height: 0.9;
+      margin-bottom: 4px;
     }
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    .subtitle {
+      margin: 8px auto 0;
+      max-width: 300px;
+      color: #8a8a8a;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
     .tabs {
       display: flex;
       gap: 8px;
       justify-content: center;
-      margin-top: 24px;
+      margin-top: 28px;
     }
     .tab {
       background: #111;
       color: #5c5c5c;
-      padding: 8px 20px;
-      border-radius: 12px;
-      font-size: 14px;
+      padding: 8px 18px;
+      border-radius: 10px;
+      font-size: 13px;
       font-weight: 600;
       border: none;
       cursor: pointer;
     }
     .tab.active { background: #1a1a1a; color: #fff; }
+
     .hint {
-      margin-top: 12px;
       text-align: center;
-      color: #5c5c5c;
-      font-size: 12px;
+      color: #8a8a8a;
+      font-size: 13px;
+      margin-top: 14px;
     }
+
     .btn-row {
       display: flex;
       justify-content: center;
       gap: 8px;
-      margin-top: 12px;
+      margin-top: 14px;
     }
     .rank-btn, .method-btn {
       background: transparent;
       border: 1px solid #242424;
       color: #fff;
-      padding: 6px 14px;
+      padding: 6px 12px;
       border-radius: 999px;
       font-size: 12px;
       font-weight: 600;
       cursor: pointer;
     }
     .rank-btn.active { border-color: #3b82f6; color: #3b82f6; }
+
     .list {
-      max-width: 512px;
-      margin: 16px auto 0;
-      padding: 0 16px;
+      max-width: 480px;
+      margin: 20px auto 0;
+      padding: 0 16px 40px;
     }
     .card {
       background: #111;
       border: 1px solid #242424;
-      border-radius: 16px;
-      padding: 16px;
-      margin-bottom: 12px;
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 10px;
     }
-    .card-top {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .rank {
-      width: 24px;
-      font-size: 14px;
-      font-weight: 700;
-      color: #fff;
-      font-variant-numeric: tabular-nums;
-    }
-    .logo {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: #1a1a1a;
-      object-fit: cover;
-      flex-shrink: 0;
+    .card-top { display: flex; align-items: center; gap: 10px; }
+    .rank { width: 22px; font-size: 13px; font-weight: 700; }
+    .logo, .logo-fallback {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: #1a1a1a; object-fit: cover; flex-shrink: 0;
     }
     .logo-fallback {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: #1a1a1a;
-      color: #8a8a8a;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      font-weight: 600;
-      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      color: #8a8a8a; font-size: 13px; font-weight: 600;
     }
     .info { min-width: 0; flex: 1; }
-    .name {
-      font-weight: 600;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .symbol {
-      color: #5c5c5c;
-      font-size: 14px;
-      margin-top: 2px;
-    }
-    .meta { color: #8a8a8a; font-size: 12px; margin-top: 2px; }
-    .meta span { color: #5c5c5c; }
+    .name { font-weight: 600; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .symbol { color: #5c5c5c; font-size: 12px; margin-top: 1px; }
+    .meta { color: #8a8a8a; font-size: 11px; margin-top: 2px; }
     .metrics {
-      margin-top: 16px;
+      margin-top: 12px;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
+      gap: 6px;
       text-align: right;
     }
-    .metric-label { color: #5c5c5c; font-size: 12px; }
-    .metric-value { margin-top: 2px; font-size: 14px; font-weight: 600; }
-    .price { color: #fff; }
+    .metric-label { color: #5c5c5c; font-size: 11px; }
+    .metric-value { margin-top: 1px; font-size: 13px; font-weight: 600; }
     .up { color: #4ade80; }
-    .down { color: #f87171; }
     .liq { color: #60a5fa; }
-    .faint { color: #5c5c5c; }
+    .link {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 12px;
+      color: #3b82f6;
+      text-decoration: none;
+    }
     .ranking {
-      margin-top: 12px;
-      padding-top: 12px;
+      margin-top: 10px;
+      padding-top: 10px;
       border-top: 1px solid #242424;
       display: none;
+      font-size: 12px;
+      color: #8a8a8a;
     }
     .ranking.show { display: block; }
-    .rank-row {
-      display: flex;
-      justify-content: space-between;
-      font-size: 12px;
-      color: #8a8a8a;
-      margin-bottom: 4px;
-    }
-    .rank-row strong { color: #fff; font-weight: 600; }
-    .link {
-      display: inline-flex;
-      margin-top: 16px;
-      background: #3b82f6;
-      color: #fff;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 600;
-      padding: 8px 14px;
-      border-radius: 8px;
-    }
-    .empty, .error {
-      text-align: center;
-      color: #8a8a8a;
-      padding: 64px 16px;
-      font-size: 14px;
-    }
-    .error { color: #f87171; }
+    .rank-row { display: flex; justify-content: space-between; margin-bottom: 3px; }
+    .rank-row strong { color: #fff; }
+
     .skeleton {
-      height: 144px;
-      border-radius: 16px;
+      height: 120px;
+      border-radius: 14px;
       background: #111;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       animation: pulse 1.4s ease-in-out infinite;
     }
-    @keyframes pulse { 50% { opacity: 0.55; } }
-    .updated {
-      margin-top: 32px;
-      text-align: center;
-      color: #5c5c5c;
-      font-size: 12px;
-    }
+    @keyframes pulse { 50% { opacity: 0.5; } }
+    .empty { text-align: center; color: #8a8a8a; padding: 40px 16px; font-size: 14px; }
+    .updated { text-align: center; color: #5c5c5c; font-size: 11px; margin-top: 20px; }
+
     .overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 20;
-      background: rgba(0, 0, 0, 0.7);
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
+      position: fixed; inset: 0; z-index: 20;
+      background: rgba(0,0,0,0.75);
+      display: flex; align-items: center; justify-content: center;
       padding: 16px;
     }
-    .overlay[hidden] {
-      display: none !important;
-    }
-    @media (min-width: 640px) {
-      .overlay { align-items: center; }
-    }
+    .overlay[hidden] { display: none !important; }
     .dialog {
-      width: 100%;
-      max-width: 448px;
-      background: #111;
-      border: 1px solid #242424;
-      border-radius: 16px;
-      padding: 20px;
+      width: 100%; max-width: 400px;
+      background: #111; border: 1px solid #242424;
+      border-radius: 14px; padding: 20px;
     }
-    .dialog h2 { font-size: 18px; font-weight: 600; }
-    .dialog p { margin-top: 12px; color: #8a8a8a; font-size: 14px; line-height: 1.5; }
-    .dialog strong { color: #fff; font-weight: 600; }
+    .dialog h2 { font-size: 16px; font-weight: 600; }
+    .dialog p { margin-top: 10px; color: #8a8a8a; font-size: 13px; line-height: 1.45; }
     .close-btn {
-      margin-top: 20px;
-      background: #3b82f6;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      padding: 8px 16px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
+      margin-top: 16px; background: #3b82f6; color: #fff;
+      border: none; border-radius: 8px; padding: 8px 14px;
+      font-size: 13px; font-weight: 600; cursor: pointer;
     }
   </style>
 </head>
 <body>
   <div class="live-corner">
-    <div class="live-row">
-      <div class="live-badge"><span class="dot"></span>LIVE DATA</div>
-      <button class="refresh-btn" id="refresh" type="button">
-        <svg id="refresh-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/></svg>
-        Refresh
-      </button>
-    </div>
-    <div class="brand-mini">CRYPTO GREEK</div>
+    <div class="live-badge"><span class="dot"></span>LIVE DATA</div>
+    <button class="refresh-btn" id="refresh" type="button">Refresh</button>
   </div>
 
   <header class="header">
-    <div class="gamma" aria-hidden="true">γ</div>
+    <div class="gamma">γ</div>
+    <h1>CRYPTO GREEK</h1>
+    <p class="subtitle">Newest tokens ranked by volume and liquidity</p>
   </header>
 
   <div class="tabs">
@@ -310,104 +227,83 @@
   <p class="hint" id="hint">Launched in the last 24 hours</p>
   <div class="btn-row">
     <button class="rank-btn" id="rank-toggle" type="button">Show ranking</button>
-    <button class="method-btn" type="button" id="method">Methodology</button>
+    <button class="method-btn" id="method" type="button">Methodology</button>
   </div>
 
   <section class="list" id="list">
     <div class="skeleton"></div>
     <div class="skeleton"></div>
     <div class="skeleton"></div>
-    <div class="skeleton"></div>
   </section>
-
-  <p class="updated" id="updated">DexScreener</p>
+  <p class="updated" id="updated"></p>
 
   <div class="overlay" id="overlay" hidden>
-    <div class="dialog" role="dialog" aria-labelledby="method-title">
-      <h2 id="method-title">Methodology</h2>
-      <p>Each tab is a different launch window. Inside every window the ranking variables, most prioritized to least:</p>
-      <p><strong>1. 24h trading volume</strong> — 70% of the score. Higher volume ranks higher.</p>
-      <p><strong>2. Liquidity</strong> — 30% of the score. More liquidity in the pool ranks higher.</p>
-      <p>Both are scored on a log scale, then combined. A higher spot means more trading relative to the money sitting in the pool.</p>
-      <p>Market cap is shown on each card for context. It is not part of the ranking.</p>
-      <p><strong>24H</strong> — pair created in the last 24 hours.</p>
-      <p><strong>7D</strong> — pair created between 1 and 7 days ago.</p>
-      <p><strong>1M</strong> — pair created between 7 and 30 days ago.</p>
-      <p>The time next to the chain is how long ago the pair was created.</p>
-      <p>Source: DexScreener. Not a buy signal.</p>
-      <button class="close-btn" type="button" id="close">Close</button>
+    <div class="dialog">
+      <h2>Methodology</h2>
+      <p>Each tab is a different launch window. Ranking inside each window:</p>
+      <p><strong>1. 24h volume</strong> — 65% of the score</p>
+      <p><strong>2. Liquidity</strong> — 25% of the score</p>
+      <p><strong>3. Socials + boosts</strong> — small bonus</p>
+      <p>Market cap is shown but not used for ranking. Source: DexScreener.</p>
+      <button class="close-btn" id="close" type="button">Close</button>
     </div>
   </div>
 
   <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.getRegistrations().then(regs => regs.forEach(r => r.unregister()));
+    }
+
     const CHAINS = {
-      solana: "Solana", ethereum: "Ethereum", base: "Base", bsc: "BNB Chain",
+      solana: "Solana", ethereum: "Ethereum", base: "Base", bsc: "BNB",
       arbitrum: "Arbitrum", polygon: "Polygon", avalanche: "Avalanche",
-      optimism: "Optimism", pulsechain: "PulseChain", sui: "Sui", ton: "TON",
+      optimism: "Optimism", pulsechain: "Pulse", sui: "Sui", ton: "TON",
       robinhood: "Robinhood", hyperevm: "HyperEVM"
     };
     const SKIP = new Set(["SOL","WSOL","USDC","USDT","USD1","ETH","WETH","BTC","WBTC","BNB","WBNB"]);
-    const DAY = 24 * 60 * 60 * 1000;
+    const DAY = 86400000;
     const HINTS = {
       h24: "Launched in the last 24 hours",
       d7: "Launched 1–7 days ago",
       m1: "Launched 7–30 days ago"
     };
 
-    let tab = "h24";
-    let board = null;
-    let loading = false;
-    let updatedAt = 0;
-    let showRanking = false;
+    let tab = "h24", board = null, loading = false, updatedAt = 0, showRanking = false;
 
     const listEl = document.getElementById("list");
     const hintEl = document.getElementById("hint");
     const updatedEl = document.getElementById("updated");
     const refreshBtn = document.getElementById("refresh");
-    const refreshIcon = document.getElementById("refresh-icon");
     const rankToggle = document.getElementById("rank-toggle");
 
     function formatUsd(n) {
-      if (!Number.isFinite(n) || n <= 0) return "—";
-      if (n >= 1_000_000) return "$" + (n / 1_000_000).toFixed(2) + "M";
-      if (n >= 1_000) return "$" + Math.round(n).toLocaleString("en-US");
-      if (n >= 1) return "$" + n.toFixed(2);
-      return "$" + n.toPrecision(3);
+      if (!n || n <= 0) return "—";
+      if (n >= 1e6) return "$" + (n / 1e6).toFixed(2) + "M";
+      if (n >= 1e3) return "$" + Math.round(n).toLocaleString();
+      return "$" + n.toFixed(n >= 1 ? 2 : 4);
     }
     function formatPrice(n) {
-      if (!Number.isFinite(n) || n <= 0) return "—";
-      if (n >= 1) return "$" + n.toLocaleString("en-US", { maximumFractionDigits: 2 });
+      if (!n || n <= 0) return "—";
+      if (n >= 1) return "$" + n.toLocaleString(undefined, { maximumFractionDigits: 2 });
       if (n >= 0.01) return "$" + n.toFixed(4);
       return "$" + n.toPrecision(3);
     }
-    function formatChange(n) {
-      if (n == null || !Number.isFinite(n)) return { text: "—", up: true };
-      const up = n >= 0;
-      const abs = Math.abs(n);
-      const body = abs >= 100 ? abs.toFixed(0) : abs.toFixed(1);
-      return { text: (up ? "+" : "−") + body + "%", up };
-    }
-    function formatAge(created, now, short) {
-      const seconds = Math.max(0, (now - created) / 1000);
-      if (seconds < 60) return short ? "now" : "just now";
-      const minutes = Math.floor(seconds / 60);
-      if (minutes < 60) return short ? minutes + "m" : minutes + "m ago";
-      const hours = Math.floor(minutes / 60);
-      if (hours < 24) return short ? hours + "h" : hours + "h ago";
-      const days = Math.floor(hours / 24);
-      return short ? days + "d" : days + "d ago";
+    function formatAge(created, now) {
+      const s = Math.max(0, (now - created) / 1000);
+      if (s < 60) return "now";
+      const m = Math.floor(s / 60);
+      if (m < 60) return m + "m";
+      const h = Math.floor(m / 60);
+      if (h < 24) return h + "h";
+      return Math.floor(h / 24) + "d";
     }
     function cleanName(name) {
-      const text = (name || "").replace(/\s+/g, " ").trim();
-      if (!text) return "";
-      return text.length <= 42 ? text : text.slice(0, 41).trimEnd() + "…";
-    }
-    function httpUrl(value) {
-      return value && String(value).startsWith("http") ? value : null;
+      const t = (name || "").replace(/\s+/g, " ").trim();
+      return t.length <= 40 ? t : t.slice(0, 39) + "…";
     }
     async function fetchJson(url) {
-      const res = await fetch(url, { headers: { accept: "application/json" } });
-      if (!res.ok) throw new Error("DexScreener " + res.status);
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(res.status);
       return res.json();
     }
 
@@ -416,22 +312,15 @@
         "https://api.dexscreener.com/token-profiles/latest/v1",
         "https://api.dexscreener.com/token-boosts/top/v1",
         "https://api.dexscreener.com/token-boosts/latest/v1"
-      ].map(async (url) => {
-        try {
-          const data = await fetchJson(url);
-          return Array.isArray(data) ? data : [];
-        } catch { return []; }
-      }));
+      ].map(url => fetchJson(url).catch(() => [])));
 
-      const icons = new Map();
-      const byChain = new Map();
+      const icons = new Map(), boosts = new Map(), byChain = new Map();
       for (const item of feeds.flat()) {
-        const chain = item.chainId;
-        const address = item.tokenAddress;
+        const chain = item.chainId, address = item.tokenAddress;
         if (!chain || !address) continue;
         const key = chain + ":" + address;
-        const icon = httpUrl(item.icon);
-        if (icon) icons.set(key, icon);
+        if (item.icon && String(item.icon).startsWith("http")) icons.set(key, item.icon);
+        if (item.totalAmount) boosts.set(key, (boosts.get(key) || 0) + Number(item.totalAmount));
         const list = byChain.get(chain) || [];
         if (!list.includes(address)) list.push(address);
         byChain.set(chain, list);
@@ -440,9 +329,8 @@
       const pairGroups = await Promise.all([...byChain.entries()].map(async ([chain, addresses]) => {
         const pairs = [];
         for (let i = 0; i < addresses.length; i += 30) {
-          const chunk = addresses.slice(i, i + 30);
           try {
-            const data = await fetchJson("https://api.dexscreener.com/tokens/v1/" + chain + "/" + chunk.join(","));
+            const data = await fetchJson("https://api.dexscreener.com/tokens/v1/" + chain + "/" + addresses.slice(i, i + 30).join(","));
             if (Array.isArray(data)) pairs.push(...data);
           } catch {}
         }
@@ -452,124 +340,105 @@
       const now = Date.now();
       const best = new Map();
       for (const pair of pairGroups.flat()) {
-        const address = pair.baseToken && pair.baseToken.address;
-        const chain = pair.chainId;
+        const address = pair.baseToken?.address, chain = pair.chainId;
         if (!address || !chain || !pair.pairCreatedAt) continue;
         const key = chain + ":" + address;
-        const current = best.get(key);
-        const liq = (pair.liquidity && pair.liquidity.usd) || 0;
-        const prev = current ? ((current.liquidity && current.liquidity.usd) || -1) : -1;
-        if (!current || liq > prev) best.set(key, pair);
+        const liq = pair.liquidity?.usd || 0;
+        const prev = best.get(key);
+        if (!prev || liq > (prev.liquidity?.usd || -1)) best.set(key, pair);
       }
 
       const rows = [...best.entries()].map(([key, pair]) => {
-        const name = cleanName(pair.baseToken && pair.baseToken.name);
-        const symbol = ((pair.baseToken && pair.baseToken.symbol) || "").trim();
-        const liq = (pair.liquidity && pair.liquidity.usd) || 0;
-        const vol = (pair.volume && pair.volume.h24) || 0;
-        const mcap = pair.marketCap || pair.fdv || 0;
+        const name = cleanName(pair.baseToken?.name);
+        const symbol = (pair.baseToken?.symbol || "").trim();
+        const liq = pair.liquidity?.usd || 0;
+        const vol = pair.volume?.h24 || 0;
         const created = pair.pairCreatedAt || 0;
         if (!name || !symbol || SKIP.has(symbol.toUpperCase())) return null;
-        if (liq < 1000 && vol < 5000) return null;
+        if (liq < 800 && vol < 3000) return null;
         const ageMs = now - created;
         if (ageMs < 0 || ageMs > 30 * DAY) return null;
-        const change = formatChange(pair.priceChange && pair.priceChange.h24);
-        const shortAge = ageMs <= DAY;
         return {
-          card: {
-            name,
-            symbol,
-            chain: CHAINS[pair.chainId] || pair.chainId || "Unknown",
-            age: formatAge(created, now, shortAge),
-            price: formatPrice(Number(pair.priceUsd)),
-            change: change.text,
-            changeUp: change.up,
-            volume: formatUsd(vol),
-            liquidity: formatUsd(liq),
-            mcap: formatUsd(mcap),
-            logo: httpUrl(pair.info && pair.info.imageUrl) || icons.get(key) || null,
-            link: pair.url || "https://dexscreener.com"
-          },
-          score: 0.7 * Math.log10(vol + 1) + 0.3 * Math.log10(liq + 1),
-          age: ageMs,
-          vol: vol,
-          liq: liq
+          name, symbol,
+          chain: CHAINS[pair.chainId] || pair.chainId || "?",
+          age: formatAge(created, now),
+          price: formatPrice(Number(pair.priceUsd)),
+          volume: formatUsd(vol),
+          liquidity: formatUsd(liq),
+          mcap: formatUsd(pair.marketCap || pair.fdv || 0),
+          logo: pair.info?.imageUrl || icons.get(key) || null,
+          link: pair.url || "https://dexscreener.com",
+          ageMs, vol, liq,
+          boost: boosts.get(key) || 0,
+          socialCount: (pair.info?.socials || []).filter(s => s?.url).length
         };
       }).filter(Boolean);
 
-      const take = (pred) => {
-        const list = rows.filter((row) => pred(row.age)).sort((a, b) => b.score - a.score).slice(0, 15);
+      rows.forEach(r => {
+        const social = Math.min(r.socialCount, 3) * 0.12 + (r.boost > 0 ? 0.2 : 0);
+        r.score = 0.65 * Math.log10(r.vol + 1) + 0.25 * Math.log10(r.liq + 1) + social;
+      });
+
+      const take = pred => {
+        const list = rows.filter(r => pred(r.ageMs)).sort((a, b) => b.score - a.score).slice(0, 15);
         const byVol = [...list].sort((a, b) => b.vol - a.vol);
         const byLiq = [...list].sort((a, b) => b.liq - a.liq);
-        const volRank = new Map(byVol.map((row, i) => [row, i + 1]));
-        const liqRank = new Map(byLiq.map((row, i) => [row, i + 1]));
-        return list.map((row) => {
-          row.card.volRank = volRank.get(row);
-          row.card.liqRank = liqRank.get(row);
-          row.card.score = row.score.toFixed(2);
-          return row.card;
+        return list.map((r, i) => {
+          r.volRank = byVol.indexOf(r) + 1;
+          r.liqRank = byLiq.indexOf(r) + 1;
+          return r;
         });
       };
+
       return {
         updatedAt: now,
         lists: {
-          h24: take((age) => age <= DAY),
-          d7: take((age) => age > DAY && age <= 7 * DAY),
-          m1: take((age) => age > 7 * DAY && age <= 30 * DAY)
+          h24: take(a => a <= DAY),
+          d7: take(a => a > DAY && a <= 7 * DAY),
+          m1: take(a => a > 7 * DAY && a <= 30 * DAY)
         }
       };
     }
 
-    function agoLabel(ts, now) {
-      const seconds = Math.max(0, Math.round((now - ts) / 1000));
-      if (seconds < 15) return "Updated just now";
-      if (seconds < 60) return "Updated " + seconds + "s ago";
-      const minutes = Math.floor(seconds / 60);
-      if (minutes < 60) return "Updated " + minutes + "m ago";
-      return "Updated " + Math.floor(minutes / 60) + "h ago";
-    }
-
-    function escapeHtml(value) {
-      return String(value).replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
-    }
-
     function render() {
-      const tokens = board ? board.lists[tab] : [];
       hintEl.textContent = HINTS[tab];
-      updatedEl.textContent = board ? agoLabel(updatedAt, Date.now()) : "DexScreener";
+      updatedEl.textContent = board ? "Updated just now" : "";
       refreshBtn.disabled = loading;
-      refreshIcon.classList.toggle("spin", loading);
-
       if (loading && !board) {
-        listEl.innerHTML = '<div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>';
+        listEl.innerHTML = '<div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>';
         return;
       }
-      if (!board) {
-        listEl.innerHTML = '<p class="empty">Couldn’t reach DexScreener. Try refresh.</p>';
-        return;
-      }
+      const tokens = board ? board.lists[tab] : [];
       if (!tokens.length) {
-        listEl.innerHTML = '<p class="empty">Nothing in this window right now.</p>';
+        listEl.innerHTML = '<p class="empty">No tokens in this window. Try Refresh.</p>';
         return;
       }
-      listEl.innerHTML = tokens.map((token, index) => {
-        const logo = token.logo
-          ? '<img class="logo" src="' + escapeHtml(token.logo) + '" alt="" onerror="this.replaceWith(Object.assign(document.createElement(\'span\'),{className:\'logo-fallback\',textContent:\'' + escapeHtml(token.symbol.slice(0, 1)) + '\'}))">'
-          : '<span class="logo-fallback">' + escapeHtml(token.symbol.slice(0, 1)) + "</span>";
-        return '<article class="card"><div class="card-top"><span class="rank">' + (index + 1) + "</span>" + logo +
-          '<div class="info"><p class="name">' + escapeHtml(token.name) + '</p><p class="symbol">$' + escapeHtml(token.symbol) +
-          '</p><p class="meta">' + escapeHtml(token.chain) + ' <span>· ' + escapeHtml(token.age) + "</span></p></div></div>" +
-          '<dl class="metrics"><div><dt class="metric-label">Price</dt><dd class="metric-value price">' + escapeHtml(token.price) +
-          '</dd></div><div><dt class="metric-label">Volume</dt><dd class="metric-value up">' + escapeHtml(token.volume) +
-          '</dd></div><div><dt class="metric-label">Liquidity</dt><dd class="metric-value liq">' + escapeHtml(token.liquidity) +
-          '</dd></div><div><dt class="metric-label">MCap</dt><dd class="metric-value price">' + escapeHtml(token.mcap) +
-          '</dd></div></dl>' +
-          '<div class="ranking' + (showRanking ? ' show' : '') + '">' +
-            '<div class="rank-row"><span>Volume rank</span><strong>#' + token.volRank + '</strong></div>' +
-            '<div class="rank-row"><span>Liquidity rank</span><strong>#' + token.liqRank + '</strong></div>' +
-            '<div class="rank-row"><span>Combined score</span><strong>' + escapeHtml(token.score) + '</strong></div>' +
-          '</div>' +
-          '<a class="link" href="' + escapeHtml(token.link) + '" target="_blank" rel="noreferrer">DexScreener</a></article>';
+      listEl.innerHTML = tokens.map((t, i) => {
+        const logo = t.logo
+          ? `<img class="logo" src="${t.logo}" alt="" onerror="this.outerHTML='<span class=logo-fallback>${t.symbol[0]}</span>'">`
+          : `<span class="logo-fallback">${t.symbol[0]}</span>`;
+        return `<article class="card">
+          <div class="card-top">
+            <span class="rank">${i + 1}</span>
+            ${logo}
+            <div class="info">
+              <p class="name">${t.name}</p>
+              <p class="symbol">$${t.symbol}</p>
+              <p class="meta">${t.chain} · ${t.age}</p>
+            </div>
+          </div>
+          <dl class="metrics">
+            <div><dt class="metric-label">Price</dt><dd class="metric-value">${t.price}</dd></div>
+            <div><dt class="metric-label">Volume</dt><dd class="metric-value up">${t.volume}</dd></div>
+            <div><dt class="metric-label">Liquidity</dt><dd class="metric-value liq">${t.liquidity}</dd></div>
+            <div><dt class="metric-label">MCap</dt><dd class="metric-value">${t.mcap}</dd></div>
+          </dl>
+          <div class="ranking ${showRanking ? "show" : ""}">
+            <div class="rank-row"><span>Volume rank</span><strong>#${t.volRank}</strong></div>
+            <div class="rank-row"><span>Liquidity rank</span><strong>#${t.liqRank}</strong></div>
+          </div>
+          <a class="link" href="${t.link}" target="_blank">DexScreener</a>
+        </article>`;
       }).join("");
     }
 
@@ -579,43 +448,35 @@
       try {
         board = await loadBoard();
         updatedAt = board.updatedAt;
-      } catch {
-        if (!board) board = null;
-      } finally {
-        loading = false;
-        render();
+      } catch (e) {
+        console.error(e);
+        if (!board) board = { lists: { h24: [], d7: [], m1: [] } };
       }
+      loading = false;
+      render();
     }
 
-    document.querySelectorAll(".tab").forEach((btn) => {
+    document.querySelectorAll(".tab").forEach(btn => {
       btn.addEventListener("click", () => {
         tab = btn.dataset.tab;
-        document.querySelectorAll(".tab").forEach((item) => item.classList.toggle("active", item === btn));
+        document.querySelectorAll(".tab").forEach(b => b.classList.toggle("active", b === btn));
         render();
       });
     });
-    refreshBtn.addEventListener("click", () => refresh());
+    refreshBtn.addEventListener("click", refresh);
     rankToggle.addEventListener("click", () => {
       showRanking = !showRanking;
       rankToggle.textContent = showRanking ? "Hide ranking" : "Show ranking";
       rankToggle.classList.toggle("active", showRanking);
       render();
     });
-    document.getElementById("method").addEventListener("click", () => {
-      document.getElementById("overlay").hidden = false;
-    });
-    document.getElementById("close").addEventListener("click", () => {
-      document.getElementById("overlay").hidden = true;
-    });
-    document.getElementById("overlay").addEventListener("click", (event) => {
-      if (event.target.id === "overlay") document.getElementById("overlay").hidden = true;
-    });
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") document.getElementById("overlay").hidden = true;
+    document.getElementById("method").addEventListener("click", () => document.getElementById("overlay").hidden = false);
+    document.getElementById("close").addEventListener("click", () => document.getElementById("overlay").hidden = true);
+    document.getElementById("overlay").addEventListener("click", e => {
+      if (e.target.id === "overlay") document.getElementById("overlay").hidden = true;
     });
 
     refresh();
-    setInterval(() => { if (board) updatedEl.textContent = agoLabel(updatedAt, Date.now()); }, 15000);
   </script>
 </body>
 </html>
