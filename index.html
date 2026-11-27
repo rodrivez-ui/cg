@@ -17,9 +17,15 @@
     }
     .live-corner {
       position: fixed;
-      top: 12px;
-      left: 12px;
+      top: 8px;
+      left: 8px;
       z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+    }
+    .live-row {
       display: flex;
       align-items: center;
       gap: 8px;
@@ -27,12 +33,13 @@
     .live-badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       background: #0a2a12;
       color: #4ade80;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 600;
-      padding: 5px 10px;
+      letter-spacing: 0.02em;
+      padding: 6px 12px;
       border-radius: 999px;
     }
     .dot { width: 6px; height: 6px; background: #4ade80; border-radius: 50%; }
@@ -40,54 +47,48 @@
       background: transparent;
       border: 1px solid #242424;
       color: #8a8a8a;
-      padding: 5px 10px;
+      padding: 6px 12px;
       border-radius: 999px;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 600;
       cursor: pointer;
     }
-    .refresh-btn:disabled { opacity: 0.5; }
-    .spin { animation: spin 0.8s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
+    .refresh-btn:disabled { opacity: 0.5; cursor: default; }
+    .brand {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+      margin-top: 4px;
+    }
 
     .header {
-      max-width: 480px;
+      max-width: 512px;
       margin: 0 auto;
-      padding: 80px 16px 0;
+      padding: 120px 16px 0;
       text-align: center;
     }
     .gamma {
       font-family: "EB Garamond", Georgia, serif;
       font-style: italic;
-      font-size: 5.5rem;
-      line-height: 0.9;
-      margin-bottom: 4px;
-    }
-    h1 {
-      font-size: 28px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-    }
-    .subtitle {
-      margin: 8px auto 0;
-      max-width: 300px;
-      color: #8a8a8a;
-      font-size: 13px;
-      line-height: 1.4;
+      font-size: 8rem;
+      line-height: 0.85;
+      margin-top: -40px;
+      margin-bottom: 8px;
+      user-select: none;
     }
 
     .tabs {
       display: flex;
       gap: 8px;
       justify-content: center;
-      margin-top: 28px;
+      margin-top: 24px;
     }
     .tab {
       background: #111;
       color: #5c5c5c;
-      padding: 8px 18px;
-      border-radius: 10px;
-      font-size: 13px;
+      padding: 8px 20px;
+      border-radius: 12px;
+      font-size: 14px;
       font-weight: 600;
       border: none;
       cursor: pointer;
@@ -97,21 +98,30 @@
     .hint {
       text-align: center;
       color: #8a8a8a;
-      font-size: 13px;
-      margin-top: 14px;
+      font-size: 14px;
+      margin-top: 16px;
+    }
+
+    .subtitle {
+      max-width: 320px;
+      margin: 16px auto 0;
+      text-align: center;
+      color: #8a8a8a;
+      font-size: 14px;
+      line-height: 1.5;
     }
 
     .btn-row {
       display: flex;
       justify-content: center;
       gap: 8px;
-      margin-top: 14px;
+      margin-top: 12px;
     }
     .rank-btn, .method-btn {
       background: transparent;
       border: 1px solid #242424;
       color: #fff;
-      padding: 6px 12px;
+      padding: 6px 14px;
       border-radius: 999px;
       font-size: 12px;
       font-weight: 600;
@@ -120,103 +130,104 @@
     .rank-btn.active { border-color: #3b82f6; color: #3b82f6; }
 
     .list {
-      max-width: 480px;
-      margin: 20px auto 0;
-      padding: 0 16px 40px;
+      max-width: 512px;
+      margin: 16px auto 0;
+      padding: 0 16px 48px;
     }
     .card {
       background: #111;
       border: 1px solid #242424;
-      border-radius: 14px;
-      padding: 14px;
-      margin-bottom: 10px;
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 12px;
     }
-    .card-top { display: flex; align-items: center; gap: 10px; }
-    .rank { width: 22px; font-size: 13px; font-weight: 700; }
+    .card-top { display: flex; align-items: center; gap: 12px; }
+    .rank { width: 24px; font-size: 14px; font-weight: 700; }
     .logo, .logo-fallback {
-      width: 36px; height: 36px; border-radius: 50%;
+      width: 40px; height: 40px; border-radius: 50%;
       background: #1a1a1a; object-fit: cover; flex-shrink: 0;
     }
     .logo-fallback {
       display: flex; align-items: center; justify-content: center;
-      color: #8a8a8a; font-size: 13px; font-weight: 600;
+      color: #8a8a8a; font-size: 14px; font-weight: 600;
     }
     .info { min-width: 0; flex: 1; }
-    .name { font-weight: 600; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .symbol { color: #5c5c5c; font-size: 12px; margin-top: 1px; }
-    .meta { color: #8a8a8a; font-size: 11px; margin-top: 2px; }
+    .name { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .symbol { color: #5c5c5c; font-size: 14px; margin-top: 2px; }
+    .meta { color: #8a8a8a; font-size: 12px; margin-top: 2px; }
     .metrics {
-      margin-top: 12px;
+      margin-top: 16px;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 6px;
+      gap: 8px;
       text-align: right;
     }
-    .metric-label { color: #5c5c5c; font-size: 11px; }
-    .metric-value { margin-top: 1px; font-size: 13px; font-weight: 600; }
+    .metric-label { color: #5c5c5c; font-size: 12px; }
+    .metric-value { margin-top: 2px; font-size: 14px; font-weight: 600; }
     .up { color: #4ade80; }
     .liq { color: #60a5fa; }
     .link {
       display: inline-block;
-      margin-top: 10px;
-      font-size: 12px;
+      margin-top: 12px;
+      font-size: 13px;
       color: #3b82f6;
       text-decoration: none;
     }
     .ranking {
-      margin-top: 10px;
-      padding-top: 10px;
+      margin-top: 12px;
+      padding-top: 12px;
       border-top: 1px solid #242424;
       display: none;
       font-size: 12px;
       color: #8a8a8a;
     }
     .ranking.show { display: block; }
-    .rank-row { display: flex; justify-content: space-between; margin-bottom: 3px; }
+    .rank-row { display: flex; justify-content: space-between; margin-bottom: 4px; }
     .rank-row strong { color: #fff; }
 
     .skeleton {
-      height: 120px;
-      border-radius: 14px;
+      height: 144px;
+      border-radius: 16px;
       background: #111;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       animation: pulse 1.4s ease-in-out infinite;
     }
-    @keyframes pulse { 50% { opacity: 0.5; } }
-    .empty { text-align: center; color: #8a8a8a; padding: 40px 16px; font-size: 14px; }
-    .updated { text-align: center; color: #5c5c5c; font-size: 11px; margin-top: 20px; }
+    @keyframes pulse { 50% { opacity: 0.55; } }
+    .empty { text-align: center; color: #8a8a8a; padding: 64px 16px; font-size: 14px; }
+    .updated { text-align: center; color: #5c5c5c; font-size: 12px; margin-top: 32px; }
 
     .overlay {
       position: fixed; inset: 0; z-index: 20;
-      background: rgba(0,0,0,0.75);
+      background: rgba(0,0,0,0.7);
       display: flex; align-items: center; justify-content: center;
       padding: 16px;
     }
     .overlay[hidden] { display: none !important; }
     .dialog {
-      width: 100%; max-width: 400px;
+      width: 100%; max-width: 448px;
       background: #111; border: 1px solid #242424;
-      border-radius: 14px; padding: 20px;
+      border-radius: 16px; padding: 20px;
     }
-    .dialog h2 { font-size: 16px; font-weight: 600; }
-    .dialog p { margin-top: 10px; color: #8a8a8a; font-size: 13px; line-height: 1.45; }
+    .dialog h2 { font-size: 18px; font-weight: 600; }
+    .dialog p { margin-top: 12px; color: #8a8a8a; font-size: 14px; line-height: 1.5; }
     .close-btn {
-      margin-top: 16px; background: #3b82f6; color: #fff;
-      border: none; border-radius: 8px; padding: 8px 14px;
-      font-size: 13px; font-weight: 600; cursor: pointer;
+      margin-top: 20px; background: #3b82f6; color: #fff;
+      border: none; border-radius: 8px; padding: 8px 16px;
+      font-size: 14px; font-weight: 600; cursor: pointer;
     }
   </style>
 </head>
 <body>
   <div class="live-corner">
-    <div class="live-badge"><span class="dot"></span>LIVE DATA</div>
-    <button class="refresh-btn" id="refresh" type="button">Refresh</button>
+    <div class="live-row">
+      <div class="live-badge"><span class="dot"></span>LIVE DATA</div>
+      <button class="refresh-btn" id="refresh" type="button">Refresh</button>
+    </div>
+    <div class="brand">CRYPTO GREEK</div>
   </div>
 
   <header class="header">
     <div class="gamma">γ</div>
-    <h1>CRYPTO GREEK</h1>
-    <p class="subtitle">Newest tokens ranked by volume and liquidity</p>
   </header>
 
   <div class="tabs">
@@ -225,6 +236,7 @@
     <button class="tab" data-tab="m1" type="button">1M</button>
   </div>
   <p class="hint" id="hint">Launched in the last 24 hours</p>
+  <p class="subtitle">Newest tokens ranked by volume and liquidity</p>
   <div class="btn-row">
     <button class="rank-btn" id="rank-toggle" type="button">Show ranking</button>
     <button class="method-btn" id="method" type="button">Methodology</button>
@@ -299,7 +311,7 @@
     }
     function cleanName(name) {
       const t = (name || "").replace(/\s+/g, " ").trim();
-      return t.length <= 40 ? t : t.slice(0, 39) + "…";
+      return t.length <= 42 ? t : t.slice(0, 41) + "…";
     }
     async function fetchJson(url) {
       const res = await fetch(url);
@@ -383,7 +395,7 @@
         const list = rows.filter(r => pred(r.ageMs)).sort((a, b) => b.score - a.score).slice(0, 15);
         const byVol = [...list].sort((a, b) => b.vol - a.vol);
         const byLiq = [...list].sort((a, b) => b.liq - a.liq);
-        return list.map((r, i) => {
+        return list.map(r => {
           r.volRank = byVol.indexOf(r) + 1;
           r.liqRank = byLiq.indexOf(r) + 1;
           return r;
